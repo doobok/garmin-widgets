@@ -19,21 +19,21 @@ Ctrl+Shift+P → "Monkey C: Build for Device" → instinct2
 Ctrl+Shift+P → "Export Project"        — produces .iq for store / sideload
 ```
 
-### CLI
+### CLI (run from repo root)
 ```bash
 SDK=/home/yura/.Garmin/ConnectIQ/Sdks/connectiq-sdk-lin-9.1.0-2026-03-09-6a872a80b
 
 # Compile (instinct2 — instinct2solar не валідний device ID в SDK 9.1.0)
-$SDK/bin/monkeyc -d instinct2 -f monkey.jungle -o bin/ShiftSun.prg -y developer_key.der
+$SDK/bin/monkeyc -d instinct2 -f shiftsun/monkey.jungle -o shiftsun/bin/ShiftSun.prg -y developer_key.der
 
 # Run in simulator (connectiq must already be running)
-$SDK/bin/monkeydo bin/ShiftSun.prg instinct2
+$SDK/bin/monkeydo shiftsun/bin/ShiftSun.prg instinct2
 
 # Debug: Tools → Show Dev Console (System.println виводиться туди)
 ```
 
 ### Deploy to device
-Copy `bin/ShiftSun.prg` → `GARMIN/APPS/` on USB-mounted watch.
+Copy `shiftsun/bin/ShiftSun.prg` → `GARMIN/APPS/` on USB-mounted watch.
 `.prg` збудований для `instinct2` сумісний з Instinct 2 Solar (одна апаратна платформа).
 
 ---
@@ -378,7 +378,7 @@ WatchUi.pushView(new DetailsView(), null, WatchUi.SLIDE_UP);
 ## Simulator Navigation
 
 `$SDK/bin/connectiq` — запускає симулятор (якщо вже запущений — виходить з кодом 255, це нормально).
-`$SDK/bin/monkeydo bin/ShiftSun.prg instinct2` — завантажує .prg в симулятор.
+`$SDK/bin/monkeydo shiftsun/bin/ShiftSun.prg instinct2` — завантажує .prg в симулятор (з repo root).
 Після завантаження: натиснути **Enter** (= кнопка SET) щоб відкрити повний вигляд.
 
 XTest через Python (xdotool не встановлений, але ctypes segfaultить без `restype = c_void_p`):
