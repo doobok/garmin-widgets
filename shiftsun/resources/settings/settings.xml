@@ -1,0 +1,29 @@
+<settings>
+  <setting propertyKey="startYear" title="Start Year">
+    <settingConfig type="numeric" min="2020" max="2099" />
+  </setting>
+  <setting propertyKey="startMonth" title="Start Month (1-12)">
+    <settingConfig type="numeric" min="1" max="12" />
+  </setting>
+  <setting propertyKey="startDay" title="Start Day (1-31)">
+    <settingConfig type="numeric" min="1" max="31" />
+  </setting>
+  <setting propertyKey="startHour" title="Start Hour (0-23)">
+    <settingConfig type="numeric" min="0" max="23" />
+  </setting>
+  <setting propertyKey="onDutyHours" title="On Duty Block (hours)">
+    <settingConfig type="numeric" min="1" max="24" />
+  </setting>
+  <setting propertyKey="restHours" title="Rest Block (hours)">
+    <settingConfig type="numeric" min="1" max="24" />
+  </setting>
+  <setting propertyKey="endYear" title="End Year">
+    <settingConfig type="numeric" min="2020" max="2099" />
+  </setting>
+  <setting propertyKey="endMonth" title="End Month (1-12)">
+    <settingConfig type="numeric" min="1" max="12" />
+  </setting>
+  <setting propertyKey="endDay" title="End Day (1-31)">
+    <settingConfig type="numeric" min="1" max="31" />
+  </setting>
+</settings>

@@ -1,0 +1,11 @@
+<resources>
+    <property id="startYear"   type="number">2026</property>
+    <property id="startMonth"  type="number">4</property>
+    <property id="startDay"    type="number">15</property>
+    <property id="startHour"   type="number">14</property>
+    <property id="onDutyHours" type="number">6</property>
+    <property id="restHours"   type="number">12</property>
+    <property id="endYear"     type="number">2026</property>
+    <property id="endMonth"    type="number">7</property>
+    <property id="endDay"      type="number">15</property>
+</resources>

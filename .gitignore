@@ -1,0 +1,21 @@
+# Build artifacts
+bin/
+*/bin/
+
+# Garmin compiler intermediates
+*.prg
+*.prg.debug.xml
+*.mir
+*.mbc
+*.mcgen
+
+# Developer keys — never commit
+developer_key.der
+developer_key.pem
+
+# Claude Code project data
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db

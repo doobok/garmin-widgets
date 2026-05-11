@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "ShiftSun — Run in Simulator",
+            "type": "monkeyc",
+            "request": "launch",
+            "device": "instinct2",
+            "jungleFiles": "shiftsun/monkey.jungle",
+            "developerKeyPath": "developer_key.der",
+            "targetSdkVersion": "9.1.0",
+            "simulatorVersion": "9.1.0"
+        }
+    ]
+}
