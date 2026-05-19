@@ -9,12 +9,13 @@ class WatchTrackerDelegate extends WatchUi.BehaviorDelegate {
     }
 
     function onNextPage() {
-        WatchUi.pushView(new DetailsView(), null, WatchUi.SLIDE_UP);
+        WatchUi.switchToView(new DetailsView(), new DetailsDelegate(), WatchUi.SLIDE_UP);
         return true;
     }
 
     function onPreviousPage() {
-        return false;
+        WatchUi.switchToView(new AnimView(), new AnimDelegate(), WatchUi.SLIDE_DOWN);
+        return true;
     }
 
     function onSelect() {
@@ -45,13 +46,15 @@ class WatchGlanceView extends WatchUi.GlanceView {
             var pct = pct10 / 10;
 
             // State label — upper half
+            var shiftNum = WatchSchedule.shiftNumber();
+            var shiftStr = " #" + shiftNum.toString();
             var stateLabel;
             if (WatchSchedule.isPending()) {
-                stateLabel = "PENDING";
+                stateLabel = "PENDING" + shiftStr;
             } else if (WatchSchedule.isOnDuty()) {
-                stateLabel = "ON DUTY";
+                stateLabel = "ON DUTY" + shiftStr;
             } else {
-                stateLabel = "REST";
+                stateLabel = "REST" + shiftStr;
             }
             dc.drawText(cx, cy - 24, Graphics.FONT_MEDIUM, stateLabel, Graphics.TEXT_JUSTIFY_CENTER);
 

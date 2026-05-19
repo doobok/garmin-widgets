@@ -156,6 +156,30 @@ module WatchSchedule {
         return pos * 100 / cycleMin;
     }
 
+    function voyageRemainingSec() {
+        var endRef = Gregorian.moment({
+            :year => endYear, :month => endMonth, :day => endDay,
+            :hour => 0, :minute => 0, :second => 0
+        });
+        var remaining = endRef.value() - Time.now().value();
+        if (remaining < 0) { return 0; }
+        return remaining;
+    }
+
+    function shiftNumber() {
+        var ref = _startRef();
+        var elapsedSec = Time.now().value() - ref.value();
+        if (elapsedSec < 0) { return 1; }
+        var cycleMin = onDutyMin + restMin;
+        if (cycleMin == 0) { return 1; }
+        var elapsedMin = (elapsedSec / 60).toNumber();
+        var cycleNum = elapsedMin / cycleMin;
+        var pos = elapsedMin % cycleMin;
+        if (pos < 0) { pos += cycleMin; }
+        if (pos >= onDutyMin) { return cycleNum + 2; }
+        return cycleNum + 1;
+    }
+
     function minutesUntilStart() {
         var ref = _startRef();
         var diff = ref.value() - Time.now().value();
