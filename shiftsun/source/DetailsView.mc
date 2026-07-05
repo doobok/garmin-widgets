@@ -3,7 +3,7 @@ using Toybox.Graphics;
 
 class DetailsView extends WatchUi.View {
 
-    private const CX_LEFT = 65;
+    private const CX_LEFT = 54;
     private const CCX     = 144;
     private const CCY     = 31;
     private const CCR     = 27;
@@ -20,28 +20,28 @@ class DetailsView extends WatchUi.View {
         var mm = _pad2(WatchSchedule.startMonth);
         var hh = _pad2(WatchSchedule.startHour);
 
-        dc.drawText(CX_LEFT, 13, Graphics.FONT_XTINY, "START",
+        dc.drawText(CX_LEFT, 10, Graphics.FONT_XTINY, "START",
             Graphics.TEXT_JUSTIFY_CENTER);
-        dc.drawText(CX_LEFT, 27, Graphics.FONT_SMALL,
+        dc.drawText(CX_LEFT, 32, Graphics.FONT_SMALL,
             dd + "." + mm + "." + WatchSchedule.startYear.toString(),
             Graphics.TEXT_JUSTIFY_CENTER);
-        dc.drawText(CX_LEFT, 47, Graphics.FONT_XTINY, hh + ":00",
+        dc.drawText(CX_LEFT, 54, Graphics.FONT_XTINY, hh + ":00",
             Graphics.TEXT_JUSTIFY_CENTER);
 
-        dc.drawLine(14, 67, 162, 67);
+        dc.drawLine(14, 82, 162, 82);
 
         var onH    = WatchSchedule.onDutyMin / 60;
         var rH     = WatchSchedule.restMin   / 60;
         var cycleH = onH + rH;
 
-        dc.drawText(14,  75, Graphics.FONT_XTINY, "ON DUTY", Graphics.TEXT_JUSTIFY_LEFT);
-        dc.drawText(162, 75, Graphics.FONT_SMALL,  onH.toString() + "h", Graphics.TEXT_JUSTIFY_RIGHT);
+        dc.drawText(14,  92, Graphics.FONT_XTINY, "ON DUTY", Graphics.TEXT_JUSTIFY_LEFT);
+        dc.drawText(162, 92, Graphics.FONT_SMALL,  onH.toString() + "h", Graphics.TEXT_JUSTIFY_RIGHT);
 
-        dc.drawText(14,  99, Graphics.FONT_XTINY, "REST", Graphics.TEXT_JUSTIFY_LEFT);
-        dc.drawText(162, 99, Graphics.FONT_SMALL,  rH.toString() + "h", Graphics.TEXT_JUSTIFY_RIGHT);
+        dc.drawText(14,  114, Graphics.FONT_XTINY, "REST", Graphics.TEXT_JUSTIFY_LEFT);
+        dc.drawText(162, 114, Graphics.FONT_SMALL,  rH.toString() + "h", Graphics.TEXT_JUSTIFY_RIGHT);
 
-        dc.drawText(14,  123, Graphics.FONT_XTINY, "CYCLE", Graphics.TEXT_JUSTIFY_LEFT);
-        dc.drawText(162, 123, Graphics.FONT_SMALL,  cycleH.toString() + "h", Graphics.TEXT_JUSTIFY_RIGHT);
+        dc.drawText(14,  136, Graphics.FONT_XTINY, "CYCLE", Graphics.TEXT_JUSTIFY_LEFT);
+        dc.drawText(162, 136, Graphics.FONT_SMALL,  cycleH.toString() + "h", Graphics.TEXT_JUSTIFY_RIGHT);
 
         _drawShiftCircle(dc);
     }

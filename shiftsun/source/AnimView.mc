@@ -96,14 +96,31 @@ class AnimView extends WatchUi.View {
         dc.fillCircle(CCX, CCY, 31);
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_WHITE);
         dc.drawCircle(CCX, CCY, CCR);
-        _drawMoon(dc);
+        _drawPuzzle(dc);
     }
 
-    private function _drawMoon(dc as Graphics.Dc) as Void {
-        dc.fillCircle(CCX, CCY, 10);
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_WHITE);
-        dc.fillCircle(CCX + 5, CCY - 3, 8);
+    // 100-segment progress puzzle: 10x10 grid of equal square tiles, filled
+    // black in a fixed pseudo-random order (idx*37 % 100 — a bijection over
+    // 0..99) as voyage progress advances, so pieces "assemble" out of sequence.
+    private const P_N    = 10;   // 10 x 10 = 100 tiles
+    private const P_CELL = 3;    // px per cell (grid side = 30)
+    private const P_TILE = 2;    // filled px, leaving 1px grout
+
+    private function _drawPuzzle(dc as Graphics.Dc) as Void {
+        var pct = WatchSchedule.totalProgress();   // 0..100
+        if (pct <= 0) { return; }
+
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_WHITE);
+        var x0 = CCX - (P_N * P_CELL) / 2;         // centred on secondary circle
+        var y0 = CCY - (P_N * P_CELL) / 2;
+
+        for (var row = 0; row < P_N; row++) {
+            for (var col = 0; col < P_N; col++) {
+                var order = ((row * P_N + col) * 37) % 100;
+                if (order >= pct) { continue; }
+                dc.fillRectangle(x0 + col * P_CELL, y0 + row * P_CELL, P_TILE, P_TILE);
+            }
+        }
     }
 }
 

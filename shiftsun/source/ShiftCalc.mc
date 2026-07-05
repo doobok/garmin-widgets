@@ -166,6 +166,14 @@ module WatchSchedule {
         return remaining;
     }
 
+    function isEnded() {
+        var endRef = Gregorian.moment({
+            :year => endYear, :month => endMonth, :day => endDay,
+            :hour => 0, :minute => 0, :second => 0
+        });
+        return Time.now().value() >= endRef.value();
+    }
+
     function shiftNumber() {
         var ref = _startRef();
         var elapsedSec = Time.now().value() - ref.value();

@@ -9,11 +9,13 @@ class WatchTrackerDelegate extends WatchUi.BehaviorDelegate {
     }
 
     function onNextPage() {
+        if (WatchSchedule.isEnded()) { return true; }
         WatchUi.switchToView(new DetailsView(), new DetailsDelegate(), WatchUi.SLIDE_UP);
         return true;
     }
 
     function onPreviousPage() {
+        if (WatchSchedule.isEnded()) { return true; }
         WatchUi.switchToView(new AnimView(), new AnimDelegate(), WatchUi.SLIDE_DOWN);
         return true;
     }
@@ -21,6 +23,11 @@ class WatchTrackerDelegate extends WatchUi.BehaviorDelegate {
     function onSelect() {
         WatchSchedule.loadConfig();
         WatchUi.requestUpdate();
+        return true;
+    }
+
+    function onMenu() {
+        WatchUi.pushView(SettingsUi.buildMenu(), new SettingsMenuDelegate(), WatchUi.SLIDE_UP);
         return true;
     }
 }
@@ -42,6 +49,13 @@ class WatchGlanceView extends WatchUi.GlanceView {
 
         try {
             WatchSchedule.loadConfig();
+
+            if (WatchSchedule.isEnded()) {
+                dc.drawText(cx, cy, Graphics.FONT_TINY, "--- DUTY WIDGET ---",
+                    Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+                return;
+            }
+
             var pct10 = WatchSchedule.totalProgressX10();
             var pct = pct10 / 10;
 

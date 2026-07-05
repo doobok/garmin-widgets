@@ -21,6 +21,7 @@ class MainView extends WatchUi.View {
     private var _remaining  = "--";
     private var _isPending  = false;
     private var _isInvalid  = false;
+    private var _isEnded    = false;
     private var _timer      = null;
 
     function initialize() {
@@ -55,6 +56,12 @@ class MainView extends WatchUi.View {
     }
 
     private function _updateState() {
+        if (WatchSchedule.isEnded()) {
+            _isEnded  = true;
+            _totalPct = 100;
+            return;
+        }
+        _isEnded   = false;
         _totalPct  = WatchSchedule.totalProgress();
         if (WatchSchedule.isPending()) {
             _isPending = true;
@@ -72,6 +79,12 @@ class MainView extends WatchUi.View {
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_WHITE);
         dc.clear();
 
+        if (_isEnded) {
+            _drawEnded(dc);
+            _drawTotalCircle(dc);   // shows 100% — keeps the secondary LCD intentional
+            return;
+        }
+
         if (_isInvalid) {
             dc.drawText(CX, 80, Graphics.FONT_SMALL, "Invalid", Graphics.TEXT_JUSTIFY_CENTER);
         } else if (_isPending) {
@@ -82,6 +95,15 @@ class MainView extends WatchUi.View {
 
         // Always last — overwrites any main-arc bleed into secondary display area
         _drawTotalCircle(dc);
+    }
+
+    // Voyage complete — blocking screen. Text kept at y>=62 to stay clear of the
+    // secondary display area (y<62 & x>113 renders on the separate top-right LCD).
+    private function _drawEnded(dc as Graphics.Dc) as Void {
+        dc.drawText(CX, 68,  Graphics.FONT_MEDIUM, "VOYAGE", Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(CX, 98,  Graphics.FONT_MEDIUM, "DONE",   Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(CX, 134, Graphics.FONT_TINY, "hold MENU", Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(CX, 152, Graphics.FONT_TINY, "to set up",  Graphics.TEXT_JUSTIFY_CENTER);
     }
 
     private function _drawActive(dc as Graphics.Dc) as Void {
